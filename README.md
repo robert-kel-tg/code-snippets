@@ -9,3 +9,11 @@ docker-compose up
 ```bash
 docker-compose exec api sh
 ```
+
+## Add new dependency
+```bash
+glide get github.com/bla/bla
+go get github.com/bla/bla
+glide install
+glide update
+```
