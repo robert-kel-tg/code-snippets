@@ -8,4 +8,4 @@ services:
       - "8080:8080"
     volumes:
       - ./:/go/src/github.com/robertke/orders-service
-    command: "CompileDaemon -build='go install ./api' -command=api"
+    command: "CompileDaemon -build='make install' -command=api"
