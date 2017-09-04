@@ -10,6 +10,7 @@ import (
 
 	"github.com/go-chi/chi"
 	"github.com/go-chi/jwtauth"
+	"github.com/go-chi/render"
 	log "github.com/sirupsen/logrus"
 )
 
@@ -27,22 +28,15 @@ func init() {
 	log.SetFormatter(&log.JSONFormatter{})
 	log.SetOutput(os.Stdout)
 
-	user := User{
-		ID:       uuid.NewV4(),
-		Name:     "Robert",
-		Username: "rke",
-	}
-
-	tokenAuth = jwtauth.New("HS512", []byte("secret"), nil)
-	_, tokenString, _ := tokenAuth.Encode(jwtauth.Claims{"user": user})
-
-	log.Warn("Debug: a sample jwt is %s ", tokenString)
 }
 
 func main() {
 
 	r := chi.NewRouter()
+	r.Use(render.SetContentType(render.ContentTypeJSON))
+
 	r.Group(func(r chi.Router) {
+
 		r.Use(jwtauth.Verifier(tokenAuth))
 		r.Use(jwtauth.Authenticator)
 
@@ -58,6 +52,32 @@ func main() {
 			w.WriteHeader(http.StatusOK)
 			w.Write(u)
 		})
+	})
+
+	r.Get("/token", func(w http.ResponseWriter, r *http.Request) {
+		user := User{
+			ID:       uuid.NewV4(),
+			Name:     "Robert",
+			Username: "rke",
+		}
+
+		tokenAuth = jwtauth.New("HS512", []byte("secret"), nil)
+		_, tokenString, _ := tokenAuth.Encode(jwtauth.Claims{"user": user})
+
+		log.Warn("Debug: a sample jwt is %s ", tokenString)
+
+		err := json.NewEncoder(w).Encode(tokenString)
+		// e, err := json.Marshal(tokenString)
+
+		if err != nil {
+			log.WithError(err)
+		}
+
+		// w.Header().Set("Content-Type", "application/json")
+		// w.WriteHeader(http.StatusOK)
+		// w.Write([]byte(fmt.Sprintf("token: %v", tokenString)))
+		// w.Write(e)
+		render.DefaultResponder(w, r, render.M{"token": tokenString})
 	})
 
 	r.Get("/", func(w http.ResponseWriter, r *http.Request) {
