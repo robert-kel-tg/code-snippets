@@ -1,14 +1,12 @@
-hash: b806b1405ecb692f91c20cedca79c33b04e5d7c50b60e9229171f5984cb73858
-updated: 2018-01-05T09:02:19.008449+01:00
+hash: 6134083763ecd78b95306bf4c8ee7dec45db7b0aeb8bdfc90e4c16e72a716eb1
+updated: 2018-01-06T10:01:26.323371+01:00
 imports:
 - name: github.com/afex/hystrix-go
   version: f118cd938f786d24f46cc307981d8f63b7951020
   subpackages:
   - hystrix
-  - hystrix/metric_collector
-  - hystrix/rolling
 - name: github.com/apache/thrift
-  version: b2a4d4ae21c789b689dd162deb819665567f481c
+  version: 327ebb6c2b6df8bf075da02ef45a2a034e9b79ba
   subpackages:
   - lib/go/thrift
 - name: github.com/codahale/hdrhistogram
@@ -17,8 +15,10 @@ imports:
   version: 4dc98b0e2b130c3c9d06868a050320e5b310d3e7
   subpackages:
   - cmd/godog
+  - colors
+  - gherkin
 - name: github.com/dgrijalva/jwt-go
-  version: a539ee1a749a2b895533f979515ac7e6e0f5b650
+  version: dbeaa9332f19a944acb5736b4456cfcc02140e29
 - name: github.com/go-chi/chi
   version: e83ac2304db3c50cf03d96a2fcd39009d458bc35
 - name: github.com/go-chi/jwtauth
@@ -33,9 +33,6 @@ imports:
   version: 1b32af207119a14b1b231d451df3ed04a72efebf
 - name: github.com/opentracing/opentracing-go
   version: 1949ddbfd147afd4d964a9f00b24eb291e0e7c38
-  subpackages:
-  - ext
-  - log
 - name: github.com/openzipkin/zipkin-go-opentracing
   version: 45e90b00710a4c34a1a7d8a78d90f9b010b0bd4d
 - name: github.com/satori/go.uuid
@@ -46,16 +43,6 @@ imports:
   version: d682213848ed68c0a260ca37d6dd5ace8423f5ba
 - name: github.com/uber/jaeger-client-go
   version: f54d8ece0a66e3db6a9247e946eb1e2bd79029ea
-  subpackages:
-  - internal/baggage
-  - internal/spanlog
-  - log
-  - thrift-gen/agent
-  - thrift-gen/jaeger
-  - thrift-gen/sampling
-  - thrift-gen/zipkincore
-  - transport/zipkin
-  - utils
 - name: github.com/uber/jaeger-lib
   version: c48167d9cae5887393dd5e61efd06a4a48b7fbb3
   subpackages:
@@ -68,11 +55,6 @@ imports:
   version: a337091b0525af65de94df2eb7e98bd9962dcbe2
   subpackages:
   - context
-- name: golang.org/x/sys
-  version: d4feaf1a7e61e1d9e79e6c4e76c6349e9cab0a03
-  subpackages:
-  - unix
-  - windows
 - name: gopkg.in/eapache/go-resiliency.v1
   version: 6800482f2c813e689c88b7ed3282262385011890
   subpackages:
