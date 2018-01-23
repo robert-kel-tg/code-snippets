@@ -11,7 +11,7 @@ DIR_OUT=$(CURDIR)/out
 
 .PHONY: all clean deps build install
 
-all: deps build
+all: deps
 
 deps:
 	git config --global http.https://gopkg.in.followRedirects true
