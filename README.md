@@ -1,5 +1,5 @@
 # Title
-Different samples
+Different code snippets
 
 ## Dev env:
 ```bash
@@ -12,14 +12,6 @@ docker-compose exec api sh
 
 ## Go docs
  godoc -http=":6060"
-
-## Add new dependency
-```bash
-glide get github.com/bla/bla
-go get github.com/bla/bla
-glide install
-glide update
-```
 
 ## Handlers
 https://elithrar.github.io/article/testing-http-handlers-go/
