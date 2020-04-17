@@ -8,12 +8,14 @@ import (
 	"time"
 )
 
-type Request struct {
-	Data    interface{}
-	Handler RequestHandler
-}
-
-type RequestHandler func(interface{})
+type (
+     Request struct {
+	     Data    interface{}
+	     Handler RequestHandler
+     }
+	
+     RequestHandler func(interface{})	
+)
 
 func NewStringRequest(s string, id int, wg *sync.WaitGroup) Request {
 	return Request{
@@ -60,15 +62,17 @@ func main() {
 }
 
 // worker.go
-type WorkerLauncher interface {
-	LaunchWorker(i int, in chan Request)
-}
-
-type PreffixSuffixWorker struct {
-	id      int
-	prefixS string
-	suffixS string
-}
+type (
+	WorkerLauncher interface {
+		LaunchWorker(i int, in chan Request)
+	}
+	
+	PreffixSuffixWorker struct {
+		id      int
+		prefixS string
+		suffixS string
+	}
+)
 
 func NewPreffixSuffixWorker(id int, prefixS string, suffixS string) *PreffixSuffixWorker {
 	return &PreffixSuffixWorker{
@@ -136,15 +140,16 @@ func (w *PreffixSuffixWorker) prefix(in <-chan Request) {
 
 // dispacher.go
 // Launching workers in parallel and handling all the possible incoming channels
-type Dispatcher interface {
-	LaunchWorker(i int, w WorkerLauncher)
-	MakeRequest(Request)
-	Stop()
-}
-
-type dispatcher struct {
-	inChannel chan Request
-}
+type (
+	Dispatcher interface {
+		LaunchWorker(i int, w WorkerLauncher)
+		MakeRequest(Request)
+		Stop()
+	}
+	dispatcher struct {
+		inChannel chan Request
+	}
+)
 
 func NewDispatcher(b int) Dispatcher {
 	return &dispatcher{
