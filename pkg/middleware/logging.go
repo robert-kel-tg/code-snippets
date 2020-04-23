@@ -26,9 +26,11 @@ func LoggerRequest() HandlerAdapter {
 func TracerRequest() HandlerAdapter {
 	return func(h http.Handler) http.Handler {
 		return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-
+			log.Println("Before")
+			
 			h.ServeHTTP(w, r)
-
+			
+			log.Println("After")
 		})
 	}
 }
